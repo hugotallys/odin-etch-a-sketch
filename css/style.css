@@ -34,9 +34,9 @@ body {
     flex: 1;
 }
 
-.active {
+/* .active {
     background-color: black;
-}
+} */
 
 .top-buttons {
     margin: 16px;

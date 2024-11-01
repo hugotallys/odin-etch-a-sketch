@@ -62,7 +62,28 @@ function initGrid(gridSize) {
     const squares = document.querySelectorAll(".square-div");
     [...squares].forEach((square) => {
         square.addEventListener(
-            "mouseover", (e) => e.target.classList.add("active")
+            "mouseover", (e) => {
+                const et = e.target;
+
+                if (et["sFactor"] === undefined) {
+                    et["sFactor"] = 0.5;
+                } else {
+                    et["sFactor"] -= 0.1;
+                }
+
+                et["sFactor"] = Math.max(et["sFactor"], 0);
+
+                e.target.style["background-color"] = rgb2hex(...hsl2rgb(360 * Math.random(), 1, et["sFactor"]));
+            }
         );
     });
 }
+
+// input: h in [0,360] and s,v in [0,1] - output: r,g,b in [0,1]
+function hsl2rgb(h, s, l) {
+    let a = s * Math.min(l, 1 - l);
+    let f = (n, k = (n + h / 30) % 12) => l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+    return [f(0), f(8), f(4)];
+}
+
+let rgb2hex = (r, g, b) => "#" + [r, g, b].map(x => Math.round(x * 255).toString(16).padStart(2, 0)).join('');
