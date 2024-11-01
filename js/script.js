@@ -6,17 +6,9 @@ let gridSize = 16;
 initGrid(gridSize);
 
 const sizeButton = document.querySelector("#size-btn");
-const cleanButton = document.querySelector("#clean-btn");
-
-cleanButton.onclick = () => {
-    const squares = document.querySelectorAll(".square-div");
-    [...squares].forEach((square) => {
-        square.classList.remove("active");
-    });
-};
 
 sizeButton.onclick = () => {
-    let newSize = prompt("Enter New Size", `${gridSize}`);
+    let newSize = prompt("Enter New Sketch Size", `${gridSize}`);
 
     newSize = parseInt(newSize);
 
@@ -79,7 +71,6 @@ function initGrid(gridSize) {
     });
 }
 
-// input: h in [0,360] and s,v in [0,1] - output: r,g,b in [0,1]
 function hsl2rgb(h, s, l) {
     let a = s * Math.min(l, 1 - l);
     let f = (n, k = (n + h / 30) % 12) => l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);

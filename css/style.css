@@ -34,10 +34,6 @@ body {
     flex: 1;
 }
 
-/* .active {
-    background-color: black;
-} */
-
 .top-buttons {
     margin: 16px;
     display: flex;
