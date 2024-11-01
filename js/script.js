@@ -1,8 +1,9 @@
 const GRID_SIZE_IN_PIXELS = 512;
 
 const container = document.querySelector(".container");
+let gridSize = 16;
 
-initGrid(16);
+initGrid(gridSize);
 
 const sizeButton = document.querySelector("#size-btn");
 const cleanButton = document.querySelector("#clean-btn");
@@ -15,12 +16,14 @@ cleanButton.onclick = () => {
 };
 
 sizeButton.onclick = () => {
-    let newSize = prompt("Enter New Size", "16");
+    let newSize = prompt("Enter New Size", `${gridSize}`);
 
-    try {
-        newSize = parseInt(newSize);
-    } catch (error) {
+    newSize = parseInt(newSize);
+
+    if (isNaN(newSize)) {
         alert(`Please, enter a whole number from 1 up to 100.`);
+        newSize = gridSize;
+        return;
     }
 
     if (newSize > 100) {
@@ -31,11 +34,14 @@ sizeButton.onclick = () => {
         newSize = 16;
     }
 
+    gridSize = newSize;
+
     const squareRows = document.querySelectorAll(".square-div-row");
     [...squareRows].forEach((row) => {
         container.removeChild(row);
     });
-    initGrid(parseInt(newSize));
+
+    initGrid(gridSize);
 };
 
 function initGrid(gridSize) {
